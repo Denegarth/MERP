@@ -1,0 +1,202 @@
+import reference as r
+import random as random
+import PySimpleGUIQt as sg
+
+
+def open_ended_100():
+    x = random.randint(1, 100)
+    if x >= 96:
+        x = x + random.randint(1, 100)
+        return x
+    else:
+        return x
+
+
+def close_ended_100():
+    x = random.randint(1, 100)
+    return x
+
+
+def close_ended_stat():
+    x = random.randint(20, 100)
+    return x
+
+
+class PlayerCharacter:
+    def __init__(self,
+                 character_name=None,
+                 selected_profession=None,
+                 selected_race=None,
+                 selected_culture=None,
+                 level=1,
+                 experience_points=0,
+                 power_points=None,
+                 realm=None,
+                 height=None,
+                 weight=None,
+                 age=None,
+                 sex=None,
+                 hair=None,
+                 eyes=None,
+                 encumbrance_penalty=0,
+                 stats=None,
+                 skills={},
+                 languages={},
+                 learnt_spell_lists={}):
+        self.character_name = character_name
+        self.selected_profession = selected_profession
+        self.selected_race = selected_race
+        self.selected_culture = selected_culture
+        self.level = level
+        self.experience_points = experience_points
+        self.stats = stats
+        self.power_points = power_points
+        self.realm = realm
+        self.height = height
+        self.weight = weight
+        self.sex = sex
+        self.age = age
+        self.hair = hair
+        self.eyes = eyes
+        self.skills = skills
+        self.languages = languages
+        self.learnt_spell_lists = learnt_spell_lists
+        self.encumbrance_penalty = encumbrance_penalty
+
+
+player_character = PlayerCharacter()
+rolled_stats = []
+skills = r.skills
+
+
+def roll_stats():
+    stat_roll_1 = (close_ended_stat())
+    stat_roll_2 = (close_ended_stat())
+    stat_roll_3 = (close_ended_stat())
+    stat_roll_4 = (close_ended_stat())
+    stat_roll_5 = (close_ended_stat())
+    stat_roll_6 = (close_ended_stat())
+    stat_roll_7 = (close_ended_stat())
+
+    generated_stats = [stat_roll_1,
+                       stat_roll_2,
+                       stat_roll_3,
+                       stat_roll_4,
+                       stat_roll_5,
+                       stat_roll_6,
+                       stat_roll_7]
+    return generated_stats
+
+
+# Calculates
+def rank_bonus():
+    for i in r.skills:
+        for d in r.skills[i]:
+            if r.skills[i]['rank'] == 0:
+                r.skills[i]['bonus']['rank_bonus'] = -25
+            elif 1 <= r.skills[i]['rank'] <= 10:
+                r.skills[i]['bonus']['rank_bonus'] = \
+                    r.skills[i]['rank'] * 5
+            else:
+                r.skills[i]['bonus']['rank_bonus'] = \
+                    50 + ((r.skills[i]['rank'] - 10) * 2)
+
+
+# Values for stat bonuses
+def stat_bonus():
+    for i in r.stats:
+        for d in r.stats[i]:
+            if r.stats[i]['value'] == 1:
+                r.stats[i]['bonus']['normal_bonus'] = -25
+            elif r.stats[i]['value'] == 2:
+                r.stats[i]['bonus']['normal_bonus'] = -20
+            elif 3 <= r.stats[i]['value'] <= 4:
+                r.stats[i]['bonus']['normal_bonus'] = -15
+            elif 5 <= r.stats[i]['value'] <= 9:
+                r.stats[i]['bonus']['normal_bonus'] = -10
+            elif 10 <= r.stats[i]['value'] <= 24:
+                r.stats[i]['bonus']['normal_bonus'] = -5
+            elif 75 <= r.stats[i]['value'] <= 89:
+                r.stats[i]['bonus']['normal_bonus'] = 5
+            elif 90 <= r.stats[i]['value'] <= 94:
+                r.stats[i]['bonus']['normal_bonus'] = 10
+            elif 95 <= r.stats[i]['value'] <= 97:
+                r.stats[i]['bonus']['normal_bonus'] = 15
+            elif 98 <= r.stats[i]['value'] <= 99:
+                r.stats[i]['bonus']['normal_bonus'] = 20
+            elif r.stats[i]['value'] == 100:
+                r.stats[i]['bonus']['normal_bonus'] = 25
+            elif r.stats[i]['value'] == 101:
+                r.stats[i]['bonus']['normal_bonus'] = 30
+            elif r.stats[i]['value'] == 102:
+                r.stats[i]['bonus']['normal_bonus'] = 35
+            else:
+                r.stats[i]['bonus']['normal_bonus'] = 0
+
+
+def stat_racial_bonus():
+    for i in r.stats:
+        if i in r.race[player_character.selected_race]:
+            r.stats[i]['bonus']['race_bonus'] = \
+                r.race[player_character.selected_race][i]
+        else:
+            r.stats[i]['bonus']['race_bonus'] = 0
+
+
+def skill_stat_bonus():
+    for i in r.skills:
+        if r.skills[i]['stat'] == 'ST':
+            r.skills[i]['bonus']['stat_bonus'] = \
+                sum(r.stats['Strength']['bonus'].values())
+        elif r.skills[i]['stat'] == 'AG':
+            r.skills[i]['bonus']['stat_bonus'] = \
+                sum(r.stats['Agility']['bonus'].values())
+        elif r.skills[i]['stat'] == 'CO':
+            r.skills[i]['bonus']['stat_bonus'] = \
+                sum(r.stats['Constitution']['bonus'].values())
+        elif r.skills[i]['stat'] == 'IG':
+            r.skills[i]['bonus']['stat_bonus'] = \
+                sum(r.stats['Intelligence']['bonus'].values())
+        elif r.skills[i]['stat'] == 'IT':
+            r.skills[i]['bonus']['stat_bonus'] = \
+                sum(r.stats['Intuition']['bonus'].values())
+        elif r.skills[i]['stat'] == 'PR':
+            r.skills[i]['bonus']['stat_bonus'] = \
+                sum(r.stats['Presence']['bonus'].values())
+        else:
+            r.skills[i]['bonus']['stat_bonus'] = 0
+
+
+def prof_bonus():
+    for i in r.skills:
+        if i in r.professions[player_character.selected_profession]:
+            r.skills[i]['bonus']['prof_bonus'] = \
+                r.professions[player_character.selected_profession][i]
+
+
+def adolescent_skills():
+    if player_character.selected_race != 'Man':
+        for i in r.skills:
+            if i in r.adolescent_ranks[player_character.selected_race]:
+                r.skills[i]['rank'] = \
+                    r.adolescent_ranks[player_character.selected_race][i]
+    else:
+        for i in r.skills:
+            if i in r.adolescent_ranks[player_character.selected_culture]:
+                r.skills[i]['rank'] = \
+                    r.adolescent_ranks[player_character.selected_culture][i]
+
+
+def man_race():
+    window = sg.Window('Race of Men Culture',
+                       [[sg.Text('Select Culture: ')],
+                        [sg.DropDown(r.race_man, key='culture')],
+                        [sg.OK()]
+                        ])
+    event, values = window.read()
+    if event == 'OK':
+        selected_culture = values['culture']
+        return selected_culture
+
+print(PlayerCharacter)
+
