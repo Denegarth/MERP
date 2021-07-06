@@ -1,0 +1,974 @@
+
+
+stats = {
+    'Strength': {
+        'value': 0,
+        'bonus': {
+            'normal_bonus': 0,
+            'race_bonus': 0
+        }
+    },
+    'Agility': {
+        'value': 0,
+        'bonus': {
+            'normal_bonus': 0,
+            'race_bonus': 0
+        }
+    },
+    'Constitution': {
+        'value': 0,
+        'bonus': {
+            'normal_bonus': 0,
+            'race_bonus': 0
+        }
+    },
+    'Intelligence': {
+        'value': 0,
+        'bonus': {
+            'normal_bonus': 0,
+            'race_bonus': 0
+        }
+    },
+    'Intuition': {
+        'value': 0,
+        'bonus': {
+            'normal_bonus': 0,
+            'race_bonus': 0
+        }
+    },
+    'Presence': {
+        'value': 0,
+        'bonus': {
+            'normal_bonus': 0,
+            'race_bonus': 0
+        }
+    },
+    'Appearance': {
+        'value': 0,
+        'bonus': {
+            'normal_bonus': 0,
+            'race_bonus': 0
+        }
+    }
+}
+
+
+professions = {
+    'Warrior': {
+        '1-H Edged': 3,
+        '1-H Concussion': 3,
+        '2-Handed': 3,
+        'Thrown': 3,
+        'Missile': 3,
+        'Pole Arm': 3,
+        'Climb': 1,
+        'Ride': 1,
+        'Swim': 1,
+        'Track': 1,
+        'Body Development': 2
+    },
+    'Scout': {
+        '1-H Edged': 1,
+        '1-H Concussion': 1,
+        '2-Handed': 1,
+        'Thrown': 1,
+        'Missile': 1,
+        'Pole Arm': 1,
+        'Climb': 1,
+        'Ride': 1,
+        'Swim': 1,
+        'Track': 1,
+        'Ambush': 2,
+        'Stalk/Hide': 2,
+        'Pick Lock': 2,
+        'Detect Traps': 2,
+        'Perception': 3
+    },
+    'Ranger': {
+        '1-H Edged': 2,
+        '1-H Concussion': 2,
+        '2-Handed': 2,
+        'Thrown': 2,
+        'Missile': 2,
+        'Pole Arm': 2,
+        'Climb': 3,
+        'Ride': 3,
+        'Swim': 3,
+        'Track': 3,
+        'Stalk/Hide': 2,
+        'Perception': 2
+    },
+    'Bard': {
+        '1-H Edged': 1,
+        '1-H Concussion': 1,
+        '2-Handed': 1,
+        'Thrown': 1,
+        'Missile': 1,
+        'Pole Arm': 1,
+        'Climb': 1,
+        'Ride': 1,
+        'Swim': 1,
+        'Track': 1,
+        'Ambush': 1,
+        'Stalk/Hide': 1,
+        'Pick Lock': 1,
+        'Detect Trap': 1,
+        'Use Item': 1,
+        'Read Runes': 1,
+        'Base Spell': 1,
+        'Perception': 1
+    },
+    'Mage': {
+        'Use Item': 2,
+        'Read Runes': 2,
+        'Directed Spell': 3,
+        'Base Spell': 2
+    },
+    'Animist': {
+        'Climb': 1,
+        'Ride': 1,
+        'Swim': 1,
+        'Track': 1,
+        'Use Item': 1,
+        'Directed Spell': 2,
+        'Base Spell': 2,
+        'Perception': 1
+    }
+}
+
+race_man = [
+    'Beornings',
+    'Black Numenoreans',
+    'Corsairs',
+    'Dorwinrim',
+    'Dunlendings',
+    'Easterlings',
+    'Haradrim',
+    'Lossoth',
+    'Rohirrim',
+    'Rural-men',
+    'Urban-men',
+    'Variags',
+    'Woodmen'
+]
+
+race = {
+    'Hobbit': {
+        'Strength': -20,
+        'Agility': 15,
+        'Constitution': 15,
+        'Intuition': -5,
+        'Presence': -5,
+        'Poison': 30,
+        'Disease': 15,
+        'Channeling': 20,
+        'Essence': 50
+    },
+    'Dwarf': {
+        'strength': 5,
+        'agility': -5,
+        'constitution': 15,
+        'intuition': -5,
+        'presence': -5,
+        'poison': 10,
+        'disease': 10,
+        'essence': 40},
+    'Man': {
+        'Strength': 5,
+    },
+    'Dunedain': {
+        'Strength': 5,
+        'Constitution': 10,
+        'Presence': 5,
+        'Channeling': 5,
+        'Essence': 5
+    },
+    'Half-Elf': {
+        'Strength': 5,
+        'Agility': 5,
+        'Constitution': 5,
+        'Presence': 5,
+        'Poison': 50,
+        'Disease': 5
+    },
+    'Silvan Elf': {
+        'Agility': 10,
+        'Intuition': 5,
+        'Presence': 5,
+        'Poison': 10,
+        'Disease': 100
+    },
+    'Sindar Elf': {
+        'Agility': 10,
+        'Constitution': 5,
+        'Intuition': 5,
+        'Presence': 10,
+        'Poison': 10,
+        'Disease': 100
+    },
+    'Noldor Elf': {
+        'Agility': 15,
+        'Constitution': 10,
+        'Intelligence': 5,
+        'Intuition': 5,
+        'Presence': 15,
+        'Poison': 10,
+        'Disease': 100
+    },
+    'Wose': {
+        'Constitution': 5,
+        'Presence': -5,
+        'Essence': 20
+    },
+    'Half-Orc': {
+        'Strength': 5,
+        'Constitution': 5,
+        'Presence': -5,
+        'Poison': 10
+    },
+    'Orc': {
+        'Strength': 5,
+        'Agility': -5,
+        'Constitution': 15,
+        'Intelligence': -10,
+        'Intuition': -10,
+        'Presence': -10,
+        'Poison': 20,
+        'Disease': 5
+    },
+    'Uruk-Hai': {
+        'Strength': 10,
+        'Constitution': 20,
+        'Intuition': -5,
+        'Presence': -10,
+        'Poison': 20,
+        'Disease': 5
+    },
+    'Half-Troll': {
+        'Strength': 10,
+        'Agility': -5,
+        'Constitution': 10,
+        'Intelligence': -5,
+        'Intuition': -5,
+        'Presence': -5,
+        'Poison': 15,
+        'Disease': 5
+    },
+    'Troll': {
+        'Strength': 15,
+        'Agility': -10,
+        'Constitution': 15,
+        'Intelligence': -15,
+        'Intuition': -15,
+        'Presence': -10,
+        'Poison': 30,
+        'Disease': 10,
+    },
+    'Olog-Hai': {
+        'Strength': 20,
+        'Agility': -5,
+        'Constitution': 15,
+        'Intelligence': -5,
+        'Intuition': -10,
+        'Presence': -10,
+        'Poison': 20,
+        'Disease': 10
+    }
+}
+
+
+skills = {
+    'No Armour': {
+        'rank': 0,
+        'stat': 'AG',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0,
+        }
+    },
+    'Soft Leather': {
+        'rank': 0,
+        'stat': 'AG',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': -15
+        }
+    },
+    'Rigid Leather': {
+        'rank': 0,
+        'stat': 'AG',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': -30
+        }
+    },
+    'Chain': {
+        'rank': 0,
+        'stat': 'ST',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': -45
+        }
+    },
+    'Plate': {
+        'rank': 0,
+        'stat': 'ST',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': -60
+        }
+    },
+    '1-H Edged': {
+        'rank': 0,
+        'stat': 'ST',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0
+        }
+    },
+    '1-H Concussion': {
+        'rank': 0,
+        'stat': 'ST',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0
+        }
+    },
+    '2-Handed': {
+        'rank': 0,
+        'stat': 'ST',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0
+        }
+    },
+    'Thrown': {
+        'rank': 0,
+        'stat': 'AG',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0
+        }
+    },
+    'Missile': {
+        'rank': 0,
+        'stat': 'AG',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0
+        }
+    },
+    'Pole Arm': {
+        'rank': 0,
+        'stat': 'ST',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0
+        }
+    },
+    'Climb': {
+        'rank': 0,
+        'stat': 'AG',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0
+        }
+    },
+    'Ride': {
+        'rank': 0,
+        'stat': 'IT',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0
+        }
+    },
+    'Swim': {
+        'rank': 0,
+        'stat': 'AG',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0
+        }
+    },
+    'Track': {
+        'rank': 0,
+        'stat': 'IG',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0
+        }
+    },
+    'Ambush': {
+        'rank': 0,
+        'stat': 'XX',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0
+        }
+    },
+    'Stalk/Hide': {
+        'rank': 0,
+        'stat': 'PR',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0
+        }
+    },
+    'Pick Locks': {
+        'rank': 0,
+        'stat': 'IG',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0
+        }
+    },
+    'Detect Traps': {
+        'rank': 0,
+        'stat': 'IT',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0
+        }
+    },
+    'Read Runes': {
+        'rank': 0,
+        'stat': 'IG',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0
+        }
+    },
+    'Use Item': {
+        'rank': 0,
+        'stat': 'IT',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0
+        }
+    },
+    'Directed Spell': {
+        'rank': 0,
+        'stat': 'AG',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0
+        }
+    },
+    'Perception': {
+        'rank': 0,
+        'stat': 'IT',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0
+        }
+    },
+    'Body Development': {
+        'rank': 0,
+        'stat': 'CO',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0
+        }
+    },
+    'Base Spell OB': {
+        'rank': 0,
+        'stat': 'XX',
+        'bonus': {
+            'rank_bonus': 0,
+            'stat_bonus': 0,
+            'prof_bonus': 0,
+            'item_bonus': 0,
+            'special_bonus_1': 0,
+            'special_bonus_2': 0
+        }
+    },
+}
+
+adolescent_ranks = {
+    'Hobbit': {
+        'No Armour': 1,
+        'Thrown': 2,
+        'Missile': 2,
+        'Climb': 2,
+        'Stalk/Hide': 5,
+        'Pick Lock': 1,
+        'Disarm Traps': 1,
+        'Body Development': 2,
+        'Perception': 4,
+        'Language Ranks': 3,
+        'Background Points': 5
+    },
+    'Dwarf': {
+        'No Armour': 1,
+        'Rigid Leather': 1,
+        'Chain': 3,
+        '1-H Concussion': 4,
+        'Thrown': 1,
+        'Climb': 1,
+        'Pick Lock': 1,
+        'Disarm Traps': 1,
+        'Body Development': 3,
+        'Perception': 2,
+        'Spell List Chance': .03,
+        'Language Ranks': 4,
+        'Background Points': 4
+    },
+    'Dunedain': {
+        'No Armour': 1,
+        'Rigid Leather': 1,
+        'Chain': 2,
+        '1-H Edged': 2,
+        '2-Handed': 1,
+        'Missile': 1,
+        'Pole Arms': 1,
+        'Ride': 1,
+        'Swim': 1,
+        'Read Runes': 1,
+        'Use Items': 1,
+        'Body Development': 3,
+        'Spell List Chance': .1,
+        'Language Ranks': 6,
+        'Background Points': 3
+    },
+    'Half-Elf': {
+        'No Armour': 1,
+        'Rigid Leather': 1,
+        'Chain': 1,
+        '1-H Edged': 1,
+        'Missile': 2,
+        'Climb': 1,
+        'Ride': 1,
+        'Swim': 1,
+        'Stalk/Hide': 2,
+        'Read Runes': 1,
+        'Body Development': 1,
+        'Perception': 1,
+        'Spell List Chance': .1,
+        'Language Ranks': 4,
+        'Background Points': 3
+    },
+    'Silvan Elf': {
+        'No Armour': 1,
+        '1-H Edged': 1,
+        'Missile': 3,
+        'Climb': 2,
+        'Ride': 1,
+        'Swim': 3,
+        'Stalk/Hide': 4,
+        'Read Runes': 1,
+        'Body Development': 1,
+        'Perception': 3,
+        'Spell List Chance': .2,
+        'Language Ranks': 6,
+        'Background Points': 4
+    },
+    'Sindar Elf': {
+        'No Armour': 1,
+        '1-H Edged': 1,
+        'Missile': 2,
+        'Climb': 1,
+        'Ride': 1,
+        'Swim': 2,
+        'Stalk/Hide': 3,
+        'Read Runes': 2,
+        'Use Items': 1,
+        'Body Development': 1,
+        'Perception': 3,
+        'Spell List Chance': .3,
+        'Language Ranks': 8,
+        'Background Points': 3
+    },
+    'Noldor Elf': {
+        'No Armour': 1,
+        '1-H Edged': 1,
+        'Missile': 1,
+        'Ride': 1,
+        'Swim': 2,
+        'Stalk/Hide': 2,
+        'Read Runes': 2,
+        'Use Items': 1,
+        'Body Development': 1,
+        'Perception': 3,
+        'Spell List Chance': .4,
+        'Language Ranks': 10,
+        'Background Points': 2
+    },
+    'Wose': {
+        'No Armour': 1,
+        'Soft Leather': 3,
+        '1-H Edged': 2,
+        '1-H Concussion': 4,
+        'Thrown': 4,
+        'Pole Arms': 1,
+        'Climb': 3,
+        'Swim': 2,
+        'Ambush': 2,
+        'Stalk/Hide': 4,
+        'Body Development': 3,
+        'Perception': 1,
+        'Spell List Chance': .05,
+        'Language Ranks': 2,
+        'Background Points': 5
+    },
+    'Half-Orc': {
+        'No Armour': 1,
+        'Soft Leather': 1,
+        'Rigid Leather': 3,
+        'Chain': 1,
+        '1-H Concussion': 3,
+        'Thrown': 1,
+        'Missile': 1,
+        'Climb': 1,
+        'Ambush': 1,
+        'Body Development': 4,
+        'Language Ranks': 2,
+        'Background Points': 2
+    },
+    'Orc': {
+        'No Armour': 1,
+        'Soft Leather': 1,
+        'Rigid Leather': 3,
+        'Chain': 2,
+        '1-H Concussion': 3,
+        'Thrown': 1,
+        'Pole Arm': 1,
+        'Climb': 1,
+        'Ambush': 1,
+        'Body Development': 2,
+        'Language Ranks': 2,
+        'Background Points': 2
+    },
+    'Uruk-Hai': {
+        'No Armour': 1,
+        'Soft Leather': 1,
+        'Rigid Leather': 3,
+        'Chain': 3,
+        '1-H Edged': 4,
+        '1-H Concussion': 1,
+        '2-Handed': 1,
+        'Thrown': 1,
+        'Missile': 1,
+        'Pole Arms': 1,
+        'Climb': 1,
+        'Ride': 1,
+        'Ambush': 1,
+        'Body Development': 3,
+        'Perception': 1,
+        'Language Ranks': 2,
+        'Background Points': 2
+    },
+    'Half-Troll': {
+        'No Armour': 1,
+        'Soft Leather': 2,
+        'Rigid Leather': 2,
+        'Chain': 3,
+        '2-Handed': 4,
+        'Thrown': 2,
+        'Climb': 1,
+        'Body Development': 4,
+        'Language Ranks': 2,
+        'Background Points': 2
+    },
+    'Troll': {
+        'No Armour': 1,
+        '2-Handed': 3,
+        'Thrown': 1,
+        'Climb': 1,
+        'Body Development': 5,
+        'Language Ranks': 2,
+        'Background Points': 1
+    },
+    'Olog-Hai': {
+        'No Armour': 1,
+        '2-Handed': 5,
+        'Thrown': 2,
+        'Climb': 1,
+        'Body Development': 5,
+        'Perception': 1,
+        'Language Ranks': 2,
+        'Background Points': 1
+    },
+    'Beornings': {
+        'No Armour': 1,
+        '2-Handed': 1,
+        'Thrown': 1,
+        'Pole Arms': 2,
+        'Climb': 2,
+        'Swim': 2,
+        'Stalk/Hide': 4,
+        'Body Development': 3,
+        'Perception': 1,
+        'Spell List Chance': .03,
+        'Language Ranks': 3,
+        'Background Points': 5
+    },
+    'Black Numenoreans': {
+        'No Armour': 1,
+        'Chain': 2,
+        '1-H Edged': 1,
+        'Thrown': 1,
+        'Missile': 1,
+        'Ride': 1,
+        'Swim': 3,
+        'Read Runes': 1,
+        'Use Items': 1,
+        'Body Development': 2,
+        'Spell List Chance': .1,
+        'Language Ranks': 6,
+        'Background Points': 3
+    },
+    'Corsairs': {
+        'No Armour': 1,
+        'Rigid Leather': 2,
+        '1-H Edged': 2,
+        'Thrown': 1,
+        'Missile': 1,
+        'Swim': 5,
+        'Body Development': 2,
+        'Spell List Chance': .05,
+        'Language Ranks': 5,
+        'Background Points': 5
+    },
+    'Dorwinrim': {
+        'No Armour': 1,
+        'Rigid Leather': 1,
+        '1-H Concussion': 1,
+        'Thrown': 1,
+        'Missile': 1,
+        'Pole Arms': 1,
+        'Ride': 2,
+        'Swim': 1,
+        'Body Development': 1,
+        'Spell List Chance': .1,
+        'Language Ranks': 5,
+        'Background Points': 5
+    },
+    'Dunlendings': {
+        'No Armour': 1,
+        'Rigid Leather': 1,
+        '1-H Concussion': 1,
+        'Thrown': 2,
+        'Missile': 1,
+        'Pole Arms': 2,
+        'Climb': 5,
+        'Swim': 1,
+        'Stalk/Hide': 2,
+        'Body Development': 3,
+        'Perception': 1,
+        'Spell List Chance': .02,
+        'Language Ranks': 2,
+        'Background Points': 4
+    },
+    'Easterlings': {
+        'No Armour': 1,
+        '1-H Edged': 1,
+        'Thrown': 1,
+        'Missile': 2,
+        'Pole Arms': 2,
+        'Ride': 5,
+        'Body Development': 2,
+        'Perception': 1,
+        'Spell List Chance': .02,
+        'Language Ranks': 2,
+        'Background Points': 4
+    },
+    'Haradrim': {
+        'No Armour': 1,
+        'Soft Leather': 1,
+        '1-H Edged': 1,
+        'Thrown': 1,
+        'Pole Arms': 2,
+        'Ride': 7,
+        'Body Development': 2,
+        'Perception': 1,
+        'Spell List Chance': .02,
+        'Language Ranks': 3,
+        'Background Points': 5
+    },
+    'Lossoth': {
+        'No Armour': 1,
+        'Soft Leather': 3,
+        'Thrown': 3,
+        'Pole Arms': 2,
+        'Swim': 2,
+        'Stalk/Hide': 4,
+        'Body Development': 3,
+        'Perception': 1,
+        'Spell List Chance': .05,
+        'Language Ranks': 1,
+        'Background Points': 4
+    },
+    'Rohirrim': {
+        'No Armour': 1,
+        'Rigid Leather': 1,
+        'Chain': 2,
+        '1-H Edged': 2,
+        'Missile': 1,
+        'Pole Arms': 1,
+        'Ride': 8,
+        'Swim': 1,
+        'Body Development': 2,
+        'Perception': 1,
+        'Spell List Chance': .03,
+        'Language Ranks': 4,
+        'Background Points': 5
+    },
+    'Rural-men': {
+        'No Armour': 1,
+        'Soft Leather': 1,
+        'Rigid Leather': 1,
+        'Chain': 1,
+        '1-H Edged': 1,
+        'Thrown': 1,
+        'Missile': 1,
+        'Pole Arms': 1,
+        'Ride': 1,
+        'Swim': 1,
+        'Stalk/Hide': 1,
+        'Body Development': 2,
+        'Perception': 1,
+        'Spell List Chance': .03,
+        'Language Ranks': 4,
+        'Background Points': 5
+    },
+    'Urban-men': {
+        'No Armour': 1,
+        '1-H Edged': 1,
+        'Missile': 1,
+        'Swim': 1,
+        'Read Runes': 1,
+        'Use Items': 1,
+        'Body Development': 1,
+        'Perception': 1,
+        'Spell List Chance': .15,
+        'Language Ranks': 5,
+        'Background Points': 5
+    },
+    'Variags': {
+        'No Armour': 1,
+        'Soft Leather': 1,
+        '1-H Edged': 2,
+        'Thrown': 1,
+        'Missile': 1,
+        'Pole Arms': 1,
+        'Ride': 4,
+        'Stalk/Hide': 1,
+        'Body Development': 2,
+        'Perception': 1,
+        'Spell List Chance': .03,
+        'Language Ranks': 2,
+        'Background Points': 5
+    },
+    'Woodmen': {
+        'No Armour': 1,
+        'Soft Leather': 3,
+        '1-H Edged': 1,
+        'Thrown': 1,
+        'Missile': 1,
+        'Pole Arms': 1,
+        'Climb': 3,
+        'Swim': 1,
+        'Stalk/Hide': 4,
+        'Body Development': 2,
+        'Perception': 1,
+        'Spell List Chance': .03,
+        'Language Ranks': 2,
+        'Background Points': 5
+    }
+}
