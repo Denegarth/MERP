@@ -1,0 +1,897 @@
+import reference as r
+import character_functions as cf
+import PySimpleGUIQt as sg
+
+
+
+def assign_stats():
+    stat1 = cf.rolled_stats[0]
+    stat2 = cf.rolled_stats[1]
+    stat3 = cf.rolled_stats[2]
+    stat4 = cf.rolled_stats[3]
+    stat5 = cf.rolled_stats[4]
+    stat6 = cf.rolled_stats[5]
+    stat7 = cf.rolled_stats[6]
+
+    column_1 = [
+        [sg.Text('Strength: ')],
+        [sg.Text('Agility: ')],
+        [sg.Text('Constitution: ')],
+        [sg.Text('Intelligence: ')],
+        [sg.Text('Intuition: ')],
+        [sg.Text('Presence: ')],
+        [sg.Text('Appearance: ')]
+    ]
+
+    column_2 = [
+        [sg.Combo([stat1, stat2, stat3, stat4, stat5, stat6, stat7],
+                  enable_events=True, key='stat1')],
+        [sg.Combo([stat1, stat2, stat3, stat4, stat5, stat6, stat7],
+                  enable_events=True, key='stat2')],
+        [sg.Combo([stat1, stat2, stat3, stat4, stat5, stat6, stat7],
+                  enable_events=True, key='stat3')],
+        [sg.Combo([stat1, stat2, stat3, stat4, stat5, stat6, stat7],
+                  enable_events=True, key='stat4')],
+        [sg.Combo([stat1, stat2, stat3, stat4, stat5, stat6, stat7],
+                  enable_events=True, key='stat5')],
+        [sg.Combo([stat1, stat2, stat3, stat4, stat5, stat6, stat7],
+                  enable_events=True, key='stat6')],
+        [sg.Combo([stat1, stat2, stat3, stat4, stat5, stat6, stat7],
+                  enable_events=True, key='stat7')]
+    ]
+
+    assign_stats_layout = [
+        [sg.Text('You rolled: ')],
+        [sg.Column(column_1), sg.Column(column_2)],
+        [sg.Button('Continue'), sg.Exit()]
+    ]
+
+    assign_stats_window = sg.Window('MERP Character Creation',
+                                    assign_stats_layout)
+
+    while True:
+        assign_stats_event, stat_choice = assign_stats_window.Read()
+        if event is None or event == 'Exit':
+            break
+
+        if assign_stats_event == 'Continue':
+            r.stats['Strength']['value'] = stat_choice['stat1']
+            r.stats['Agility']['value'] = stat_choice['stat2']
+            r.stats['Constitution']['value'] = stat_choice['stat3']
+            r.stats['Intelligence']['value'] = stat_choice['stat4']
+            r.stats['Intuition']['value'] = stat_choice['stat5']
+            r.stats['Presence']['value'] = stat_choice['stat6']
+            r.stats['Appearance']['value'] = stat_choice['stat7']
+            window.Close()
+            return
+
+    window.Close()
+
+
+def character_sheet():
+    sg.theme('LightBlue2')
+
+    character_info_column = [
+        [sg.Text('Name: ' + cf.player_character.character_name, size=(30, 1))],
+        [sg.Text(
+            'Culture/Race: ' + cf.player_character.selected_race + ' '
+            + cf.player_character.selected_culture, size=(40, 1),)],
+        [sg.Text('Profession: ' + cf.player_character.selected_profession),
+         sg.Text('Age: ' + cf.player_character.age)],
+        [sg.Text('Realm: '),
+         sg.Text('Gender: ' + cf.player_character.sex)],
+        [sg.Text('Height: ' + cf.player_character.height),
+         sg.Text('Weight: ' + cf.player_character.weight)],
+        [sg.Text('Hair: ' + cf.player_character.hair),
+         sg.Text('Eyes: ' + cf.player_character.eyes)],
+        [sg.Text('Demeanor: ')],
+        [sg.Text('Personality: ')],
+        [sg.Text('Motivation: ')],
+        [sg.Text('Alignment: ')],
+        [sg.Text('Special: ')]
+    ]
+
+    spell_column = [
+        [sg.Text('Spell Lists', size=(30, 1)),
+         sg.Text('Chance', size=(8, 1), justification='center')],
+        [sg.Text('1. ')],
+        [sg.Text('2. ')],
+        [sg.Text('3. ')],
+        [sg.Text('4. ')],
+        [sg.Text('5. ')],
+        [sg.Text('6. ')],
+        [sg.Text('7. ')],
+        [sg.Text('8. ')],
+        [sg.Text('9. ')],
+        [sg.Text('10. ')]
+    ]
+
+    language_column = [
+        [sg.Text('Languages', size=(30, 1)),
+         sg.Text('Rank', size=(8, 1), justification='center')],
+        [sg.Text('1. ')],
+        [sg.Text('2. ')],
+        [sg.Text('3. ')],
+        [sg.Text('4. ')],
+        [sg.Text('5. ')],
+        [sg.Text('6. ')],
+        [sg.Text('7. ')],
+        [sg.Text('8. ')],
+        [sg.Text('9. ')],
+        [sg.Text('10. ')]
+    ]
+
+    column1 = [
+        [sg.Text('Stat (Abbr)', justification='center')],
+        [sg.Text('Strength (ST)', justification='left')],
+        [sg.Text('Agility (AG)', justification='left')],
+        [sg.Text('Constitution (CO)', justification='left')],
+        [sg.Text('Intelligence (IG)', justification='left')],
+        [sg.Text('Intuition (IT)', justification='left')],
+        [sg.Text('Presence (PR)', justification='left')],
+        [sg.Text('Appearance (AP)', justification='left')]]
+
+    column2 = [
+        [sg.Text('Value', justification='center')],
+        [sg.Text(r.stats['Strength']['value'], justification='center')],
+        [sg.Text(r.stats['Agility']['value'], justification='center')],
+        [sg.Text(r.stats['Constitution']['value'], justification='center')],
+        [sg.Text(r.stats['Intelligence']['value'], justification='center')],
+        [sg.Text(r.stats['Intuition']['value'], justification='center')],
+        [sg.Text(r.stats['Presence']['value'], justification='center')],
+        [sg.Text(r.stats['Appearance']['value'], justification='center')]]
+
+    column3 = [
+        [sg.Text('Normal Bonus', justification='center')],
+        [sg.Text(r.stats['Strength']['bonus']['normal_bonus'],
+                 justification='center')],
+        [sg.Text(r.stats['Agility']['bonus']['normal_bonus'],
+                 justification='center')],
+        [sg.Text(r.stats['Constitution']['bonus']['normal_bonus'],
+                 justification='center')],
+        [sg.Text(r.stats['Intelligence']['bonus']['normal_bonus'],
+                 justification='center')],
+        [sg.Text(r.stats['Intuition']['bonus']['normal_bonus'],
+                 justification='center')],
+        [sg.Text(r.stats['Presence']['bonus']['normal_bonus'],
+                 justification='center')],
+        [sg.Text(r.stats['Appearance']['bonus']['normal_bonus'],
+                 justification='center')]]
+
+    column4 = [
+        [sg.Text('Race Bonus', justification='center')],
+        [sg.Text(r.stats['Strength']['bonus']['race_bonus'],
+                 justification='center')],
+        [sg.Text(r.stats['Agility']['bonus']['race_bonus'],
+                 justification='center')],
+        [sg.Text(r.stats['Constitution']['bonus']['race_bonus'],
+                 justification='center')],
+        [sg.Text(r.stats['Intelligence']['bonus']['race_bonus'],
+                 justification='center')],
+        [sg.Text(r.stats['Intuition']['bonus']['race_bonus'],
+                 justification='center')],
+        [sg.Text(r.stats['Presence']['bonus']['race_bonus'],
+                 justification='center')],
+        [sg.Text(r.stats['Appearance']['bonus']['race_bonus'],
+                 justification='center')]]
+    column5 = [
+        [sg.Text('Total Bonus', justification='center')],
+        [sg.Text(sum(r.stats['Strength']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.stats['Agility']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.stats['Constitution']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.stats['Intelligence']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.stats['Intuition']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.stats['Presence']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.stats['Appearance']['bonus'].values()),
+                 justification='center')]]
+
+    level_column = [
+        [sg.Text('Current Level: ', size=(25, 1)),
+         sg.Text('Shield (+25 DB) ', size=(25, 1), justification='right'),
+         sg.CBox('', disabled=True, default=False)],
+        [sg.Text('Experience Points: ', size=(25, 1)),
+         sg.Text('Helmet (-5 Perception) ', size=(25, 1),
+                 justification='right'),
+         sg.CBox('', disabled=True, default=False)],
+        [sg.Text('Power Points: ', size=(25, 1)),
+         sg.Text('Arm Greaves (-5 OB) ', size=(25, 1), justification='right'),
+         sg.CBox('', disabled=True, default=False)],
+        [sg.Text('Armour Worn: ', size=(25, 1)),
+         sg.Text('Leg Greaves (-5 MM) ', size=(25, 1), justification='right'),
+         sg.CBox('', disabled=True, default=False)],
+        [sg.Text('', size=(23, 0)),
+         sg.Text('Stat'),
+         sg.Text('Items'),
+         sg.Text('Special'),
+         sg.Text('Total\nBonus')],
+        [sg.Text('Defensive Bonus (DB)', size=(23, 1)),
+         sg.Text('AG ' + str(sum(r.stats['Agility']['bonus'].values())))
+         ],
+        [sg.Text('Essence RR Bonus', size=(23, 1)),
+         sg.Text('AG ' + str(sum(r.stats['Intelligence']['bonus'].values())))
+         ],
+        [sg.Text('Channeling RR Bonus', size=(23, 1)),
+        sg.Text('AG ' + str(sum(r.stats['Intuition']['bonus'].values())))
+         ],
+        [sg.Text('Poison RR Bonus', size=(23, 1)),
+         sg.Text('AG ' + str(sum(r.stats['Constitution']['bonus'].values())))
+         ],
+        [sg.Text('Disease RR Bonus', size=(23, 1)),
+         sg.Text('AG ' + str(sum(r.stats['Constitution']['bonus'].values())))
+         ],
+
+    ]
+
+    skill_column1 = [
+        [sg.Text('Skill')],
+        [sg.Text('Movement and Maneuver Skill Category')],
+        [sg.Text('No Armour ')],
+        [sg.Text('Soft Leather')],
+        [sg.Text('Rigid Leather')],
+        [sg.Text('Chain')],
+        [sg.Text('Plate')],
+        [sg.Text('Weapon Skill Category')],
+        [sg.Text('1-H Edged')],
+        [sg.Text('1-H Concussion')],
+        [sg.Text('2-Handed')],
+        [sg.Text('Thrown')],
+        [sg.Text('Missile')],
+        [sg.Text('Pole Arm')],
+        [sg.Text('General Skills Category')],
+        [sg.Text('Climb')],
+        [sg.Text('Ride')],
+        [sg.Text('Swim')],
+        [sg.Text('Track')],
+        [sg.Text('Subterfuge Skills Category')],
+        [sg.Text('Ambush')],
+        [sg.Text('Stalk/Hide')],
+        [sg.Text('Pick Locks')],
+        [sg.Text('Detect Traps')],
+        [sg.Text('Magic Skills Category')],
+        [sg.Text('Read Runes')],
+        [sg.Text('Use Item')],
+        [sg.Text('Directed Spell')],
+        [sg.Text('Misc and Secondary Skills')],
+        [sg.Text('Perception')],
+        [sg.Text('Body Development')],
+        [sg.Text('Base Spell OB')]
+    ]
+
+    skill_column2 = [
+        [sg.Text('# of Ranks')],
+        [sg.Text('')],
+        [sg.Text(r.skills['No Armour']['rank'], justification='center')],
+        [sg.Text(r.skills['Soft Leather']['rank'], justification='center')],
+        [sg.Text(r.skills['Rigid Leather']['rank'], justification='center')],
+        [sg.Text(r.skills['Chain']['rank'], justification='center')],
+        [sg.Text(r.skills['Plate']['rank'], justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['1-H Edged']['rank'], justification='center')],
+        [sg.Text(r.skills['1-H Concussion']['rank'], justification='center')],
+        [sg.Text(r.skills['2-Handed']['rank'], justification='center')],
+        [sg.Text(r.skills['Thrown']['rank'], justification='center')],
+        [sg.Text(r.skills['Missile']['rank'], justification='center')],
+        [sg.Text(r.skills['Pole Arm']['rank'], justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Climb']['rank'], justification='center')],
+        [sg.Text(r.skills['Ride']['rank'], justification='center')],
+        [sg.Text(r.skills['Swim']['rank'], justification='center')],
+        [sg.Text(r.skills['Track']['rank'], justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Ambush']['rank'], justification='center')],
+        [sg.Text(r.skills['Stalk/Hide']['rank'], justification='center')],
+        [sg.Text(r.skills['Pick Locks']['rank'], justification='center')],
+        [sg.Text(r.skills['Detect Traps']['rank'], justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Read Runes']['rank'], justification='center')],
+        [sg.Text(r.skills['Use Item']['rank'], justification='center')],
+        [sg.Text(r.skills['Directed Spell']['rank'], justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Perception']['rank'], justification='center')],
+        [sg.Text(r.skills['Body Development']['rank'],
+                 justification='center')],
+        [sg.Text(r.skills['Base Spell OB']['rank'], justification='center')]
+    ]
+
+    skill_column3 = [
+        [sg.Text('Rank Bonus')],
+        [sg.Text('')],
+        [sg.Text(r.skills['No Armour']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Soft Leather']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Rigid Leather']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Chain']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Plate']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['1-H Edged']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['1-H Concussion']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['2-Handed']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Thrown']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Missile']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Pole Arm']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Climb']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Ride']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Swim']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Track']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Ambush']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Stalk/Hide']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Pick Locks']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Detect Traps']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Read Runes']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Use Item']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Directed Spell']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Perception']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Body Development']['bonus']['rank_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Base Spell OB']['bonus']['rank_bonus'],
+                 justification='center')]
+    ]
+
+    skill_column4 = [
+        [sg.Text('Stat Bonus')],
+        [sg.Text('')],
+        [sg.Text('AG ' + str(r.skills['No Armour']['bonus']['stat_bonus']),
+                 justification='center')],
+        [sg.Text('AG ' + str(r.skills['Soft Leather']['bonus']['stat_bonus']),
+                 justification='center')],
+        [sg.Text('AG ' + str(r.skills['Rigid Leather']['bonus']['stat_bonus']),
+                 justification='center')],
+        [sg.Text('ST ' + str(r.skills['Chain']['bonus']['stat_bonus']),
+                 justification='center')],
+        [sg.Text('ST ' + str(r.skills['Plate']['bonus']['stat_bonus']),
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text('ST ' + str(r.skills['1-H Edged']['bonus']['stat_bonus']),
+                 justification='center')],
+        [sg.Text('ST ' + str(r.skills['1-H Concussion']['bonus']
+                             ['stat_bonus']),
+                 justification='center')],
+        [sg.Text('ST ' + str(r.skills['2-Handed']['bonus']['stat_bonus']),
+                 justification='center')],
+        [sg.Text('AG ' + str(r.skills['Thrown']['bonus']['stat_bonus']),
+                 justification='center')],
+        [sg.Text('AG ' + str(r.skills['Missile']['bonus']['stat_bonus']),
+                 justification='center')],
+        [sg.Text('ST ' + str(r.skills['Pole Arm']['bonus']['stat_bonus']),
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text('AG ' + str(r.skills['Climb']['bonus']['stat_bonus']),
+                 justification='center')],
+        [sg.Text('IT ' + str(r.skills['Ride']['bonus']['stat_bonus']),
+                 justification='center')],
+        [sg.Text('AG ' + str(r.skills['Swim']['bonus']['stat_bonus']),
+                 justification='center')],
+        [sg.Text('IG ' + str(r.skills['Track']['bonus']['stat_bonus']),
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text('XXXXX', justification='center')],
+        [sg.Text('PR ' + str(r.skills['Stalk/Hide']['bonus']['stat_bonus']),
+                 justification='center')],
+        [sg.Text('IG ' + str(r.skills['Pick Locks']['bonus']['stat_bonus']),
+                 justification='center')],
+        [sg.Text('IT ' + str(r.skills['Detect Traps']['bonus']['stat_bonus']),
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text('IG ' + str(r.skills['Read Runes']['bonus']['stat_bonus']),
+                 justification='center')],
+        [sg.Text('IT ' + str(r.skills['Use Item']['bonus']['stat_bonus']),
+                 justification='center')],
+        [sg.Text('AG ' + str(r.skills['Directed Spell']['bonus']
+                             ['stat_bonus']),
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text('IT ' + str(r.skills['Perception']['bonus']['stat_bonus']),
+                 justification='center')],
+        [sg.Text('CO ' + str(r.skills['Body Development']['bonus']
+                             ['stat_bonus']),
+                 justification='center')],
+        [sg.Text('XXXXX', justification='center')]
+
+    ]
+
+    skill_column5 = [
+        [sg.Text('Prof Bonus')],
+        [sg.Text('')],
+        [sg.Text('Xxxxx', justification='center')],
+        [sg.Text('Xxxxx', justification='center')],
+        [sg.Text('Xxxxx', justification='center')],
+        [sg.Text('Xxxxx', justification='center')],
+        [sg.Text('Xxxxx', justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['1-H Edged']['bonus']['prof_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['1-H Concussion']['bonus']['prof_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['2-Handed']['bonus']['prof_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Thrown']['bonus']['prof_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Missile']['bonus']['prof_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Pole Arm']['bonus']['prof_bonus'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Climb']['bonus']['prof_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Ride']['bonus']['prof_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Swim']['bonus']['prof_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Track']['bonus']['prof_bonus'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Ambush']['bonus']['prof_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Stalk/Hide']['bonus']['prof_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Pick Locks']['bonus']['prof_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Detect Traps']['bonus']['prof_bonus'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Read Runes']['bonus']['prof_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Use Item']['bonus']['prof_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Directed Spell']['bonus']['prof_bonus'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Perception']['bonus']['prof_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Body Development']['bonus']['prof_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Base Spell OB']['bonus']['prof_bonus'],
+                 justification='center')]
+    ]
+
+    skill_column6 = [
+        [sg.Text('Item Bonus')],
+        [sg.Text('')],
+        [sg.Text(r.skills['No Armour']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Soft Leather']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Rigid Leather']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Chain']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Plate']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['1-H Edged']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['1-H Concussion']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['2-Handed']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Thrown']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Missile']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Pole Arm']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Climb']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Ride']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Swim']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Track']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Ambush']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Stalk/Hide']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Pick Locks']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Detect Traps']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Read Runes']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Use Item']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Directed Spell']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Perception']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Body Development']['bonus']['item_bonus'],
+                 justification='center')],
+        [sg.Text(r.skills['Base Spell OB']['bonus']['item_bonus'],
+                 justification='center')]
+
+    ]
+
+    skill_column7 = [
+        [sg.Text('Special Bonus')],
+        [sg.Text('')],
+        [sg.Text(r.skills['No Armour']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text(r.skills['Soft Leather']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text(r.skills['Rigid Leather']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text(r.skills['Chain']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text(r.skills['Plate']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['1-H Edged']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text(r.skills['1-H Concussion']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text(r.skills['2-Handed']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text(r.skills['Thrown']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text(r.skills['Missile']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text(r.skills['Pole Arm']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Climb']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text(r.skills['Ride']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text(r.skills['Swim']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text(r.skills['Track']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Ambush']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text(r.skills['Stalk/Hide']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text(r.skills['Pick Locks']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text(r.skills['Detect Traps']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Read Runes']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text(r.skills['Use Item']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text(r.skills['Directed Spell']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Perception']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text(r.skills['Body Development']['bonus']['special_bonus_1'],
+                 justification='center')],
+        [sg.Text(r.skills['Base Spell OB']['bonus']['special_bonus_1'],
+                 justification='center')]
+    ]
+
+    skill_column8 = [
+        [sg.Text('Special Bonus')],
+        [sg.Text('')],
+        [sg.Text(r.skills['No Armour']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text(r.skills['Soft Leather']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text(r.skills['Rigid Leather']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text(r.skills['Chain']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text(r.skills['Plate']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['1-H Edged']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text(r.skills['1-H Concussion']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text(r.skills['2-Handed']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text(r.skills['Thrown']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text(r.skills['Missile']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text(r.skills['Pole Arm']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Climb']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text(r.skills['Ride']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text(r.skills['Swim']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text(r.skills['Track']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Ambush']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text(r.skills['Stalk/Hide']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text(r.skills['Pick Locks']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text(r.skills['Detect Traps']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Read Runes']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text(r.skills['Use Item']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text(r.skills['Directed Spell']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(r.skills['Perception']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text(r.skills['Body Development']['bonus']['special_bonus_2'],
+                 justification='center')],
+        [sg.Text(r.skills['Base Spell OB']['bonus']['special_bonus_2'],
+                 justification='center')]
+    ]
+
+    skill_column9 = [
+        [sg.Text('Total Bonus')],
+        [sg.Text('')],
+        [sg.Text(sum(r.skills['No Armour']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.skills['Soft Leather']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.skills['Rigid Leather']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.skills['Chain']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.skills['Plate']['bonus'].values()),
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(sum(r.skills['1-H Edged']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.skills['1-H Concussion']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.skills['2-Handed']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.skills['Thrown']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.skills['Missile']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.skills['Pole Arm']['bonus'].values()),
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(sum(r.skills['Climb']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.skills['Ride']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.skills['Swim']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.skills['Track']['bonus'].values()),
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(sum(r.skills['Ambush']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.skills['Stalk/Hide']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.skills['Pick Locks']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.skills['Detect Traps']['bonus'].values()),
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(sum(r.skills['Read Runes']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.skills['Use Item']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.skills['Directed Spell']['bonus'].values()),
+                 justification='center')],
+        [sg.Text('')],
+        [sg.Text(sum(r.skills['Perception']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.skills['Body Development']['bonus'].values()),
+                 justification='center')],
+        [sg.Text(sum(r.skills['Base Spell OB']['bonus'].values()),
+                 justification='center')]
+    ]
+
+    character_sheet_layout = [
+        [sg.Text('MERP Character Sheet'),
+         sg.Button('Load Character'),
+         sg.Button('Create New Character')],
+        [sg.Column(
+            [[sg.Frame('', [[sg.Column(character_info_column, pad=(1, 1)),
+                             sg.Column(spell_column, pad=(1, 1)),
+                             sg.Column(language_column, pad=(1, 1))]])]],
+            background_color='grey1')],
+        [sg.Column([[sg.Frame('', [
+            [sg.Column(column1),
+             sg.Column(column2),
+             sg.Column(column3),
+             sg.Column(column4),
+             sg.Column(column5),
+             sg.Column(level_column)]])]],
+                   pad=(3, 3), background_color='grey1')],
+        [sg.Column([[sg.Frame('', [
+            [sg.Column(skill_column1),
+             sg.Column(skill_column2),
+             sg.Column(skill_column3),
+             sg.Column(skill_column4),
+             sg.Column(skill_column5),
+             sg.Column(skill_column6),
+             sg.Column(skill_column7),
+             sg.Column(skill_column8),
+             sg.Column(skill_column9), ]])]],
+                   pad=(3, 3), background_color='grey1')],
+    ]
+
+    character_sheet_window = sg.Window('',
+                                       character_sheet_layout, resizable=True,
+                                       grab_anywhere=False)
+
+    while True:
+        character_sheet_event, character_sheet_values =\
+            character_sheet_window.read()
+
+        if character_sheet_event == 'Create New Character':
+            cf.PlayerCharacter.character_name = sg.popup_get_text(
+                'Please enter your character name: ')
+            character_sheet_window.read()
+            # save(values)
+        elif event == 'Load Character':
+            filename = sg.popup_get_file('Load Settings', no_window=True)
+            window.LoadFromDisk(filename)
+            # load(form)
+        elif event in ('Exit', None):
+            break
+
+    window.close()
+
+
+def create_character():
+    column_1 = [
+        [sg.Text('Enter your character name: ', size=(30, 1))],
+        [sg.Text('Select your Race/Culture: ', size=(30, 1))],
+        [sg.Text('Select your profession: ', size=(30, 1))],
+        [sg.Text("Enter your character's age: ", size=(30, 1))],
+        [sg.Text("Enter your character's gender: ", size=(30, 1))],
+        [sg.Text("Enter your character's height: ", size=(30, 1))],
+        [sg.Text("Enter your character's weight: ", size=(30, 1))],
+        [sg.Text("Enter your character's hair color: ", size=(30, 1))],
+        [sg.Text("Enter your character's eye color: ", size=(30, 1))]
+
+    ]
+
+    column_2 = [
+        [sg.InputText('', key='name_text', size=(26, 1))],
+        [sg.Combo(
+            ['Hobbit', 'Dwarf', 'Man', 'Dunedain', 'Half-Elf', 'Silvan Elf',
+             'Sindar Elf', 'Noldor Elf', 'Wose',
+             'Half-Orc', 'Orc', 'Uruk-Hai', 'Half-Troll', 'Troll', 'Olog-Hai'],
+            enable_events=True, size=(25, 1),
+            key='selected_race')],
+        [sg.Combo(['Warrior', 'Scout', 'Ranger', 'Bard', 'Mage', 'Animist'],
+                  enable_events=True,
+                  key='selected_profession', size=(25, 1))],
+        [sg.InputText('', key='age_text', size=(25, 1))],
+        [sg.InputText('', key='sex_text', size=(25, 1))],
+        [sg.InputText('', key='height_text', size=(25, 1))],
+        [sg.InputText('', key='weight_text', size=(25, 1))],
+        [sg.InputText('', key='hair_text', size=(25, 1))],
+        [sg.InputText('', key='eyes_text', size=(25, 1))]
+    ]
+    create_character_layout = [
+        [sg.Column(
+            [[sg.Frame('', [[sg.Column(column_1, background_color='gray34'),
+                             sg.Column(column_2,
+                                       background_color='gray34')]])]],
+            pad=(10, 10))],
+        [sg.Button('Continue'), sg.Exit()]
+    ]
+
+    create_character_window = sg.Window('MERP Character Creation',
+                                        create_character_layout)
+
+    while True:
+        create_character_event, create_character_values =\
+            create_character_window.Read()
+        if create_character_event is None or create_character_event == 'Exit':
+            break
+
+        if create_character_event == 'Continue':
+            entered_name = create_character_values['name_text']
+            entered_race = create_character_values['selected_race']
+            entered_profession = create_character_values['selected_profession']
+            entered_age = create_character_values['age_text']
+            entered_sex = create_character_values['sex_text']
+            entered_height = create_character_values['height_text']
+            entered_weight = create_character_values['weight_text']
+            entered_hair = create_character_values['hair_text']
+            entered_eyes = create_character_values['eyes_text']
+            if entered_race == 'Man':
+                entered_culture = cf.man_race()
+            else:
+                entered_culture = ''
+            window.Close()
+            return entered_name, entered_race, entered_profession,\
+                entered_age, entered_sex, entered_height, entered_weight,\
+                entered_hair, entered_eyes, entered_culture
+
+    window.Close()
+
+
+if cf.PlayerCharacter(selected_profession=None):
+    layout = [
+        [sg.Text('MERP Character Sheet', font=("Helvetica", 10)),
+         sg.Button('Load Character'), sg.Button('Create New Character')]]
+
+    window = sg.Window('Character Creation', layout, resizable=True,
+                       default_element_size=(40, 1),
+                       grab_anywhere=False)
+
+    while True:
+        event, values = window.read()
+
+        if event == 'Create New Character':
+            info_list = create_character()
+            cf.player_character.character_name = info_list[0]
+            cf.player_character.selected_race = info_list[1]
+            cf.player_character.selected_profession = info_list[2]
+            cf.player_character.age = info_list[3]
+            cf.player_character.sex = info_list[4]
+            cf.player_character.height = info_list[5]
+            cf.player_character.weight = info_list[6]
+            cf.player_character.hair = info_list[7]
+            cf.player_character.eyes = info_list[8]
+            cf.player_character.selected_culture = info_list[9]
+            cf.rolled_stats.extend(cf.roll_stats())
+            assign_stats()
+            for i in r.stats:
+                cf.stat_bonus()
+            for i in r.stats:
+                cf.stat_racial_bonus()
+            for i in r.skills:
+                cf.adolescent_skills()
+            for i in r.skills:
+                cf.rank_bonus()
+            for i in r.skills:
+                cf.skill_stat_bonus()
+            for i in r.skills:
+                cf.prof_bonus()
+            character_sheet()
+
+        # Need to do this still save(values)
+        elif event == 'Load Character':
+            filename = sg.popup_get_file('Load Settings', no_window=True)
+            window.LoadFromDisk(filename)
+            # load(form)
+        elif event in ('Exit', None):
+            break
+
+        window.close()
+
+# if __name__ == '__main__':
+#    main()
+character_sheet()
